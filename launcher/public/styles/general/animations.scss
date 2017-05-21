@@ -1,0 +1,29 @@
+//!!!!!!!!!!!!!!!!!!
+// BE VERY CAREFUL WITH THE ANIMATION COREOGRAPHY!!!!!!!
+//!!!!!!!!!!!!!!!!!!
+@keyframes initialAnim {
+    0% {
+        width: 0;
+        height: 0;
+        box-shadow: 0 0 0 0 #000;
+    }
+    100% {
+        width: 650px;
+        height: 550px;
+        box-shadow: 3px 3px 11px -4px #000;
+    }
+}
+
+@keyframes dashBgAnim {
+    0% {
+        transform: translate(75%, 50%);
+        width: 40%;
+    }
+
+    100% {
+        width: 75%;
+        transform: translate(17%, 8%);
+    }
+}
+
+// selected tab aniamtion
