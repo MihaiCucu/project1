@@ -1,10 +1,18 @@
 'use strict';
 
-import React from 'react';
-import ReactDom from 'react-dom';
-import DashboardContent from './dashboard-content';
+import React from 'react'
+import ReactDom from 'react-dom'
+import store from '../store'
+import {connect} from 'react-redux'
 
-export default class Dashboard extends React.Component {
+// think of a better way of mapping...maybe move to a different file
+const mapStateToProps = store => {
+    return {
+        dashboard: store.dashboard
+    }
+};
+
+class Dashboard extends React.Component {
     componentDidMount () {
         let dashBgEl = ReactDom.findDOMNode(this);
 
@@ -17,20 +25,20 @@ export default class Dashboard extends React.Component {
         });
     }
 
-    activationHandler (e) {
-        let dashEl = ReactDom.findDOMNode(this),
-            parentElement = dashEl.parentNode,
-            siblings = parentElement.querySelectorAll('.nav-item');
-debugger;
-        // remove selected class from all elements
-        for (var i = 0; i < siblings.length; i++) {
-            siblings[i].classList.remove('selected');
-        }
+    // activationHandler (e) {
+    //     let dashEl = ReactDom.findDOMNode(this),
+    //         parentElement = dashEl.parentNode,
+    //         siblings = parentElement.querySelectorAll('.nav-item');
 
-        // add active/selected classes
-        parentElement.classList.add('activated');
-        dashEl.classList.add('selected');
-    }
+    //     // remove selected class from all elements
+    //     for (var i = 0; i < siblings.length; i++) {
+    //         siblings[i].classList.remove('selected');
+    //     }
+
+    //     // add active/selected classes
+    //     parentElement.classList.add('activated');
+    //     dashEl.classList.add('selected');
+    // }
 
     render () {
         var dashBg = ['<svg id="dash-bg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve">',
@@ -47,8 +55,11 @@ debugger;
                     '</g>',
                 '</svg>'].join('');
         return (
-            <div onClick={this.activationHandler.bind(this)} dangerouslySetInnerHTML={{__html: dashBg}} className="dashboard-tab nav-item">
+            <div dangerouslySetInnerHTML={{__html: dashBg}} className={'dashboard-tab nav-item ' + (this.props.dashboard.isActive ? 'selected' : '')} onClick={this.props.clickFn}>
             </div>
         );
     }
 }
+
+// connect returns a function which is called with the class as an argument
+export default connect(mapStateToProps)(Dashboard)

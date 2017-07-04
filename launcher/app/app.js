@@ -1,54 +1,132 @@
 'use strict';
+
 // ES6 Component
-// Import React and ReactDOM
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Dashboard from './components/dashboard.component';
-import Files from './components/files.component';
-import Profile from './components/profile.component';
-import Settings from './components/settings.component';
-const gamepad = require('./util/gamepad');
-const navigation = require('./util/navigation');
+// Import React and other required components
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Dashboard from './components/dashboard.component'
+import Files from './components/files.component'
+import Profile from './components/profile.component'
+import Settings from './components/settings.component'
+import {Provider, connect} from 'react-redux'
+import store from './store'
+
+// Gamepad and keyboard navigation
+import gamepad from './util/gamepad'
+import navigation from './util/navigation'
 
 // FirstPage component created as a class
-var FirstPage = React.createClass ({
-    getInitialState: function () {
-        return {
-            isSelectedPage: false,
-            isContentRendered: false,
-            isFirstPage: true,
-            activePage: false
-        }
-    },
-
-    componentDidMount: function () {
+class FirstPage extends React.Component {
+    componentDidMount() {
         var el = ReactDOM.findDOMNode(this);
 
-        el.classList.add('mounted');
+        setTimeout(function() {
+            el.classList.add('mounted');
+        }, 500);
 
-        gamepad.default.init();
-        navigation.default.init();
-    },
+        gamepad.init();
+        navigation.init();
+    }
 
-    onClick: function(e) {
-        // this.state.activePage =
-    },
+    onClick(e) {
+        let targetEl = e.target.closest('.nav-item'),
+            parentEl = targetEl.parentNode,
+            targetClass = targetEl.className;
+
+        if (targetClass.indexOf('dashboard') > -1) {
+
+            parentEl.classList.add('activated');
+           
+            store.dispatch({
+                type: 'OPEN_DASHBOARD',
+                dashboard: {
+                    isActive: true
+                },
+                files: {
+                    isActive: false
+                },
+                profile: {
+                    isActive: false
+                },
+                settings: {
+                    isActive: false
+                }
+            });
+        } else if (targetClass.indexOf('files') > -1) {
+
+            parentEl.classList.add('activated');
+           
+            store.dispatch({
+                type: 'OPEN_FILES',
+                dashboard: {
+                    isActive: false
+                },
+                files: {
+                    isActive: true
+                },
+                profile: {
+                    isActive: false
+                },
+                settings: {
+                    isActive: false
+                }
+            });
+        } else if (targetClass.indexOf('profile') > -1) {
+
+            parentEl.classList.add('activated');
+           
+            store.dispatch({
+                type: 'OPEN_PROFILE',
+                dashboard: {
+                    isActive: false
+                },
+                files: {
+                    isActive: false
+                },
+                profile: {
+                    isActive: true
+                },
+                settings: {
+                    isActive: false
+                }
+            });
+        } else if (targetClass.indexOf('settings') > -1) {
+
+            parentEl.classList.add('activated');
+           
+            store.dispatch({
+                type: 'OPEN_SETTINGS',
+                dashboard: {
+                    isActive: false
+                },
+                files: {
+                    isActive: false
+                },
+                profile: {
+                    isActive: false
+                },
+                settings: {
+                    isActive: true
+                }
+            });
+        }
+    }
 
     // render method is most important
     // render method returns JSX template
-    render: function () {
+    render() {
         return (
             <div className="item-holder">
-                <Dashboard/>
-                <Files/>
-                <Profile/>
-                <Settings/>
+                <Dashboard clickFn={this.onClick}/>
+                <Files clickFn={this.onClick}/>
+                <Profile clickFn={this.onClick}/>
+                <Settings clickFn={this.onClick}/>
             </div>
         );
     }
-});
+}
 
 // Render to ID content in the DOM
-ReactDOM.render( <FirstPage/> ,
+ReactDOM.render( <Provider store={store}><FirstPage/></Provider>,
     document.getElementById('content')
 );

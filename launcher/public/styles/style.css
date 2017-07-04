@@ -54,13 +54,6 @@ table {
     width: 650px;
     height: 550px;
     box-shadow: 3px 3px 11px -4px #000; } }
-@keyframes dashBgAnim {
-  0% {
-    transform: translate(75%, 50%);
-    width: 40%; }
-  100% {
-    width: 75%;
-    transform: translate(17%, 8%); } }
 #content {
   background: #512DA8;
   position: fixed;

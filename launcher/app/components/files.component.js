@@ -22,7 +22,7 @@ export default class Files extends React.Component {
                             '<path class="st0" d="M47.8,36.4l-3.1-2.8l-1.3-1.3c-0.6-0.6-1.4-1-2.2-1h-9.5c-3,0-5.5,2.5-5.5,5.5v2v24.3c0,3,2.5,5.5,5.5,5.5h36.7  c3,0,5.5-2.5,5.5-5.5V44.3c0-3-2.5-5.5-5.5-5.5H51.5c-0.8,0-1.5-0.3-2.1-0.8L47.8,36.4z"/>',
                         '</svg>'].join('');
         return (
-            <div dangerouslySetInnerHTML={{__html: filesBg}} className="files-tab nav-item"></div>
+            <div dangerouslySetInnerHTML={{__html: filesBg}} className="files-tab nav-item" onClick={this.props.clickFn}></div>
         );
     }
 }

@@ -6,26 +6,24 @@ const nav = {
 
         // the item which is currently active in the grid
         function getCurrentActive () {
-            var activeEl = document.querySelectorAll('.active');
+            let activeEl = document.querySelectorAll('.active');
 
             return  activeEl.length > 0 ? activeEl[0] : false;
         }
 
         // get the elements closest to the active element
         function getAdjacentElems(current) {
-            var currentRect = current.getBoundingClientRect(),
+            let currentRect = current.getBoundingClientRect(),
                 navGridItems = document.querySelectorAll('.nav-item'),
                 adjacentElems = {},
-                gridRectArray = [];
-
-            // used in the loop
-            var gridItemRect = '',
+                gridRectArray = [],
+                gridItemRect = '',
                 topDifVal = 0,
                 topRefVal = 0,
                 leftDifVal = 0,
                 leftRefVal = 0;
 
-            for (var i = 0; i < navGridItems.length; i++) {
+            for (let i = 0; i < navGridItems.length; i++) {
                 gridRectArray.push(navGridItems[i].getBoundingClientRect());
             }
 
@@ -41,7 +39,7 @@ const nav = {
 
         // closest element from right
         function getClosestElems(config) {
-            var items = config.navItems,
+            let items = config.navItems,
                 itemsPosArray = config.navItemsRect,
                 current = config.current,
                 currentPos = {
@@ -63,7 +61,7 @@ const nav = {
             var topItems = [],
                 rightItems = [];
 
-            for (var i = 0, l = itemsPosArray.length; i < l; i++) {
+            for (let i = 0, l = itemsPosArray.length; i < l; i++) {
                 itemsPosArray[i] = {
                     x: config.navItemsRect[i].left,
                     y: config.navItemsRect[i].top,
@@ -163,12 +161,12 @@ const nav = {
         }
 
         function keyboardHandler (e) {
-            var keyName = e.keyIdentifier;
+            let keyName = e.keyIdentifier || e.key.split('Arrow')[1];
 
-            if (keyName.indexOf('Right') > -1
-                || keyName.indexOf('Left') > -1
-                || keyName.indexOf('Up') > -1
-                || keyName.indexOf('Down') > -1) {
+            if (keyName && (keyName.indexOf('Right') > -1
+                            || keyName.indexOf('Left') > -1
+                            || keyName.indexOf('Up') > -1
+                            || keyName.indexOf('Down') > -1)) {
 
                 handleDirectionNav(keyName.toLowerCase());
             } else {
@@ -196,7 +194,7 @@ const nav = {
 
         // handler for the keyboard direction navigation
         function handleDirectionNav(direction) {
-            var activeEl = getCurrentActive(),
+            let activeEl = getCurrentActive(),
                 adjacentElems = false;
 
             if (!activeEl) {

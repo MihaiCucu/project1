@@ -22,7 +22,7 @@ export default class Profile extends React.Component {
                         '</svg>'].join('');
 
         return (
-            <div dangerouslySetInnerHTML={{__html: profileBg}} className="profile-tab nav-item"></div>
+            <div dangerouslySetInnerHTML={{__html: profileBg}} className="profile-tab nav-item" onClick={this.props.clickFn}></div>
         );
     }
 }

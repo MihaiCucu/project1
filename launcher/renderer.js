@@ -2,8 +2,8 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 const remote = require('electron').remote;
-const ipc = require('ipc');
+const {ipcRenderer} = require('electron');
 
 document.getElementById('exitBtn').addEventListener('click', function(e) {
-    ipc.send('close-main-window');
+    ipcRenderer.send('close-main-window');
 });

@@ -24,7 +24,7 @@ export default class Settings extends React.Component {
                         '</svg>'].join('');
 
         return (
-            <div dangerouslySetInnerHTML={{__html: settingsBg}} className="settings-tab nav-item"></div>
+            <div dangerouslySetInnerHTML={{__html: settingsBg}} className="settings-tab nav-item" onClick={this.props.clickFn}></div>
         );
     }
 }

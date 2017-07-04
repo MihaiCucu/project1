@@ -1,0 +1,22 @@
+{
+  "name": "launcher",
+  "version": "0.0.1",
+  "description": "yep",
+  "main": "index.js",
+  "scripts": {
+    "test": "nope"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MihaiCucu/project1.git"
+  },
+  "keywords": [
+    "nope"
+  ],
+  "author": "Mihai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MihaiCucu/project1/issues"
+  },
+  "homepage": "https://github.com/MihaiCucu/project1#readme"
+}
