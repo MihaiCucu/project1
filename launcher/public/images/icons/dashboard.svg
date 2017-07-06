@@ -1,1 +1,24 @@
-<svg fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><rect x="11" y="11.5" width="16" height="15"/><rect x="11" y="42.5" width="16" height="15"/><rect x="11" y="73.5" width="16" height="15"/><rect x="42" y="11.5" width="16" height="15"/><rect x="42" y="42.5" width="16" height="15"/><rect x="42" y="73.5" width="16" height="15"/><rect x="73" y="11.5" width="16" height="15"/><rect x="73" y="42.5" width="16" height="15"/><rect x="73" y="73.5" width="16" height="15"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+	<g id="active" style="display: none">
+		<rect x="11" y="11.5" width="16" height="32" fill="#1976D2"/>
+		<rect x="11" y="42.5" width="16" height="32" fill="#1976D2"/>
+		<rect x="11" y="73.5" width="16" height="15" fill="#1976D2"/>
+		<rect x="32" y="11.5" width="42" height="25" fill="#1976D2"/>
+		<rect x="32" y="42.5" width="30" height="15" fill="#8BC34A"/>
+		<rect x="32" y="61.5" width="16" height="27" fill="#FFC107"/>
+		<rect x="73" y="11.5" width="16" height="25" fill="#1976D2"/>
+		<rect x="66" y="42.5" width="23" height="15" fill="#F44336"/>
+		<rect x="52" y="61.5" width="37" height="27" fill="#795548"/>
+	</g>
+	<g id="initial" style="display: none">
+		<rect x="11" y="11.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="11" y="42.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="11" y="73.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="42" y="11.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="42" y="42.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="42" y="73.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="73" y="11.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="73" y="42.5" width="16" height="15"  fill="#FFC107"/>
+		<rect x="73" y="73.5" width="16" height="15"  fill="#FFC107"/>
+	</g>
+</svg>

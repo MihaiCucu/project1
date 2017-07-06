@@ -54,6 +54,22 @@ table {
     width: 650px;
     height: 550px;
     box-shadow: 3px 3px 11px -4px #000; } }
+@keyframes openPageAnim {
+  0% {
+    height: 550px;
+    width: 650px;
+    margin: auto; }
+  100% {
+    margin: 0;
+    height: 100%;
+    width: 100%; } }
+@keyframes navItemActiveAnim {
+  100% {
+    width: 210px;
+    height: 170px;
+    transform: translate(0, 0) scale(1);
+    position: relative;
+    margin: 20px 0 20px 20px; } }
 #content {
   background: #512DA8;
   position: fixed;
@@ -108,18 +124,17 @@ table {
     opacity: 0;
     box-shadow: 2px 2px 5px -2px #000;
     transition: opacity 300ms ease, scale 400ms ease, transform 400ms ease, box-shadow 200ms ease; }
-    .item-holder .dashboard-tab svg,
-    .item-holder .files-tab svg,
-    .item-holder .profile-tab svg,
-    .item-holder .settings-tab svg {
-      width: 60%;
+    .item-holder .dashboard-tab:after,
+    .item-holder .files-tab:after,
+    .item-holder .profile-tab:after,
+    .item-holder .settings-tab:after {
+      content: '';
       position: absolute;
       top: 0;
-      right: 0;
-      bottom: 0;
       left: 0;
-      margin: auto;
-      fill: #FFC107; }
+      bottom: 0;
+      right: 0;
+      z-index: 2; }
   .item-holder .dashboard-tab {
     transform: translate(10px, 10px) scale(0.8); }
   .item-holder .files-tab {
@@ -131,38 +146,37 @@ table {
   .item-holder .settings-tab {
     transform: translate(calc(100% - 20px), calc(100% - 20px)) scale(0.8);
     transition-delay: 100ms; }
-  .item-holder.mounted .dashboard-tab,
-  .item-holder.mounted .files-tab,
-  .item-holder.mounted .profile-tab,
-  .item-holder.mounted .settings-tab {
+  .mounted .item-holder .dashboard-tab,
+  .mounted .item-holder .files-tab,
+  .mounted .item-holder .profile-tab,
+  .mounted .item-holder .settings-tab {
     opacity: 1; }
-  .item-holder.mounted .dashboard-tab {
+  .mounted .item-holder .dashboard-tab {
     transform: translate(-30px, -30px) scale(1); }
-    .item-holder.mounted .dashboard-tab.active {
+    .mounted .item-holder .dashboard-tab.active {
       transform: translate(-30px, -30px) scale(1.1);
       box-shadow: 7px 6px 11px -4px rgba(0, 0, 0, 0.6);
       z-index: 2; }
-  .item-holder.mounted .files-tab {
+  .mounted .item-holder .files-tab {
     transform: translate(100%, -30px) scale(1); }
-    .item-holder.mounted .files-tab.active {
+    .mounted .item-holder .files-tab.active {
       transform: translate(100%, -30px) scale(1.1);
       box-shadow: 7px 6px 11px -4px rgba(0, 0, 0, 0.6);
       z-index: 2; }
-  .item-holder.mounted .profile-tab {
+  .mounted .item-holder .profile-tab {
     transform: translate(-30px, 100%) scale(1); }
-    .item-holder.mounted .profile-tab.active {
+    .mounted .item-holder .profile-tab.active {
       transform: translate(-30px, 100%) scale(1.1);
       box-shadow: 7px 6px 11px -4px rgba(0, 0, 0, 0.6);
       z-index: 2; }
-  .item-holder.mounted .settings-tab {
+  .mounted .item-holder .settings-tab {
     transform: translate(100%, 100%) scale(1); }
-    .item-holder.mounted .settings-tab.active {
+    .mounted .item-holder .settings-tab.active {
       transform: translate(100%, 100%) scale(1.1);
       box-shadow: 7px 6px 11px -4px rgba(0, 0, 0, 0.6);
       z-index: 2; }
 
-#dash-bg {
-  fill: #FFC107;
+#svgDashboard {
   width: 40%;
   transition: width 400ms ease;
   position: absolute;
@@ -171,43 +185,8 @@ table {
   bottom: 0;
   left: 0;
   margin: auto; }
-  #dash-bg rect {
-    transform: translate(0px, 0px);
-    transition: width 400ms ease 100ms, height 400ms ease 100ms, transform 400ms ease 100ms, fill 400ms ease 100ms; }
-  .active #dash-bg {
+  .active #svgDashboard, .selected #svgDashboard {
     width: 75%; }
-    .active #dash-bg rect:nth-child(1) {
-      height: 32px;
-      fill: #1976D2; }
-    .active #dash-bg rect:nth-child(2) {
-      height: 32px;
-      fill: #1976D2; }
-    .active #dash-bg rect:nth-child(3) {
-      fill: #1976D2; }
-    .active #dash-bg rect:nth-child(4) {
-      transform: translate(-10px, 0);
-      width: 42px;
-      height: 25px;
-      fill: #2196F3; }
-    .active #dash-bg rect:nth-child(5) {
-      fill: #8BC34A;
-      transform: translate(-10px, 0);
-      width: 30px; }
-    .active #dash-bg rect:nth-child(6) {
-      height: 27px;
-      transform: translate(-10px, -12px); }
-    .active #dash-bg rect:nth-child(7) {
-      height: 25px;
-      fill: #2196F3; }
-    .active #dash-bg rect:nth-child(8) {
-      fill: #F44336;
-      width: 23px;
-      transform: translate(-7px, 0); }
-    .active #dash-bg rect:nth-child(9) {
-      fill: #795548;
-      transform: translate(-21px, -12px);
-      width: 37px;
-      height: 27px; }
 
 .item-holder.activated {
   margin: 0;
@@ -217,6 +196,7 @@ table {
   animation: none;
   box-sizing: border-box; }
   .item-holder.activated .nav-item {
+    transition: none;
     width: 100%;
     height: 170px;
     transform: translate(0, 0) scale(1);

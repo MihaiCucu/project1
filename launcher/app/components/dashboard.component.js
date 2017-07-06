@@ -12,50 +12,50 @@ const mapStateToProps = store => {
     }
 };
 
+let icons;
+
 class Dashboard extends React.Component {
-    componentDidMount () {
+    componentDidMount() {
         let dashBgEl = ReactDom.findDOMNode(this);
+        
+        icons = new SVGMorpheus('#svgDashboard', {
+            rotation: 'none',
+            duration: 400
+        });
 
         dashBgEl.addEventListener('mouseenter', (e) => {
             dashBgEl.classList.add('active');
+            
+            dashBgEl.className.indexOf('selected') > -1 ? '' : icons.to('active');
         });
 
         dashBgEl.addEventListener('mouseleave', (e) => {
             dashBgEl.classList.remove('active');
+            
+            dashBgEl.className.indexOf('selected') > -1 ? '' : icons.to('initial');
         });
     }
 
-    // activationHandler (e) {
-    //     let dashEl = ReactDom.findDOMNode(this),
-    //         parentElement = dashEl.parentNode,
-    //         siblings = parentElement.querySelectorAll('.nav-item');
-
-    //     // remove selected class from all elements
-    //     for (var i = 0; i < siblings.length; i++) {
-    //         siblings[i].classList.remove('selected');
-    //     }
-
-    //     // add active/selected classes
-    //     parentElement.classList.add('activated');
-    //     dashEl.classList.add('selected');
-    // }
+    componentDidUpdate() {
+        if (this.props.dashboard.isActive) {
+            icons.to('active');
+        } else {
+            icons.to('initial');
+        }
+    }
 
     render () {
-        var dashBg = ['<svg id="dash-bg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve">',
-                    '<g>',
-                        '<rect x="11" y="11.5" width="16" height="15"/>',
-                        '<rect x="11" y="42.5" width="16" height="15"/>',
-                        '<rect x="11" y="73.5" width="16" height="15"/>',
-                        '<rect x="42" y="11.5" width="16" height="15"/>',
-                        '<rect x="42" y="42.5" width="16" height="15"/>',
-                        '<rect x="42" y="73.5" width="16" height="15"/>',
-                        '<rect x="73" y="11.5" width="16" height="15"/>',
-                        '<rect x="73" y="42.5" width="16" height="15"/>',
-                        '<rect x="73" y="73.5" width="16" height="15"/>',
-                    '</g>',
-                '</svg>'].join('');
+
         return (
-            <div dangerouslySetInnerHTML={{__html: dashBg}} className={'dashboard-tab nav-item ' + (this.props.dashboard.isActive ? 'selected' : '')} onClick={this.props.clickFn}>
+            <div className={'dashboard-tab nav-item ' + (this.props.dashboard.isActive ? 'selected' : '')} 
+                onClick={this.props.clickFn}>
+
+                <object data="public/images/icons/dashboard.svg" 
+                    type="image/svg+xml" 
+                    id="svgDashboard"/>
+
+                {this.props.dashboard.isActive ? <DashboardInner/> : ''}
+
             </div>
         );
     }

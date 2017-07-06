@@ -4,12 +4,15 @@
 // Import React and other required components
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider, connect} from 'react-redux'
+import store from './store'
 import Dashboard from './components/dashboard.component'
 import Files from './components/files.component'
 import Profile from './components/profile.component'
 import Settings from './components/settings.component'
-import {Provider, connect} from 'react-redux'
-import store from './store'
+
+import DashboardInner from './components/dashboardInner.component'
+
 
 // Gamepad and keyboard navigation
 import gamepad from './util/gamepad'
@@ -115,18 +118,27 @@ class FirstPage extends React.Component {
     // render method is most important
     // render method returns JSX template
     render() {
+        console.log(this.store);
         return (
-            <div className="item-holder">
-                <Dashboard clickFn={this.onClick}/>
-                <Files clickFn={this.onClick}/>
-                <Profile clickFn={this.onClick}/>
-                <Settings clickFn={this.onClick}/>
+            <div className="main-container">
+                <div className="item-holder">
+                    <Dashboard clickFn={this.onClick}/>
+                    <Files clickFn={this.onClick}/>
+                    <Profile clickFn={this.onClick}/>
+                    <Settings clickFn={this.onClick}/>
+                </div>
+                <div className="content-wrapper">
+                    <DashboardInner />
+                </div>
             </div>
         );
     }
 }
 
 // Render to ID content in the DOM
-ReactDOM.render( <Provider store={store}><FirstPage/></Provider>,
+ReactDOM.render( 
+    <Provider store={store}>
+        <FirstPage/>
+    </Provider>,
     document.getElementById('content')
 );
