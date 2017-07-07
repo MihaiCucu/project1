@@ -3,7 +3,7 @@
 import {createStore} from 'redux'
 
 // Import the reducers
-import mainReducer from './reducers/mainReducer'
+import allReducers from './reducers/mainReducer'
 
 // The Redux Store
 let initialState = {
@@ -21,6 +21,6 @@ let initialState = {
     }
 };
 
-const store = createStore(mainReducer, initialState);
+const store = createStore(allReducers, initialState);
 
 export default store;

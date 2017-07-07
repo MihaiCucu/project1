@@ -11,7 +11,7 @@ import Files from './components/files.component'
 import Profile from './components/profile.component'
 import Settings from './components/settings.component'
 
-import DashboardInner from './components/dashboardInner.component'
+import DashboardInner from './components/inner/dashboardInner.component'
 
 
 // Gamepad and keyboard navigation
@@ -36,14 +36,19 @@ class FirstPage extends React.Component {
             parentEl = targetEl.parentNode,
             targetClass = targetEl.className;
 
+        // update so it uses an initial state for resetting
         if (targetClass.indexOf('dashboard') > -1) {
 
             parentEl.classList.add('activated');
-           
+
             store.dispatch({
                 type: 'OPEN_DASHBOARD',
                 dashboard: {
-                    isActive: true
+                    isActive: true,
+                    config: {
+                        pending: true,
+                        country: 'Romania'
+                    }
                 },
                 files: {
                     isActive: false
@@ -118,7 +123,6 @@ class FirstPage extends React.Component {
     // render method is most important
     // render method returns JSX template
     render() {
-        console.log(this.store);
         return (
             <div className="main-container">
                 <div className="item-holder">

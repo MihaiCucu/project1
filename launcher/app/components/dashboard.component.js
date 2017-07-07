@@ -45,7 +45,6 @@ class Dashboard extends React.Component {
     }
 
     render () {
-
         return (
             <div className={'dashboard-tab nav-item ' + (this.props.dashboard.isActive ? 'selected' : '')} 
                 onClick={this.props.clickFn}>
@@ -53,8 +52,6 @@ class Dashboard extends React.Component {
                 <object data="public/images/icons/dashboard.svg" 
                     type="image/svg+xml" 
                     id="svgDashboard"/>
-
-                {this.props.dashboard.isActive ? <DashboardInner/> : ''}
 
             </div>
         );
