@@ -1,0 +1,11 @@
+.video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    z-index: 2;
+
+    div {
+        max-width: 100%;
+    }
+}

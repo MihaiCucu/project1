@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom'
 import {connect} from 'react-redux'
-import axios from 'axios'
+import api from '../../util/api'
 
 const mapStateToProps = store => {
 	// console.log(store);
@@ -21,35 +21,43 @@ class Weather extends React.Component {
 			weatherData,
 			forecastData;
 
-		axios.get(requestWeatherUrl)
-			.then((resp) => {
-				weatherData = resp;
-				weatherRequestFinished = true;
-
-				if (weatherRequestFinished && forecastRequestFinished) {
-					this.props.updateWeather(weatherData, forecastData);
+		api.send({
+			endpoint: requestWeatherUrl,
+			method: 'GET',
+			callback: {
+				success: (resp) => {
+					weatherData = JSON.parse(resp);
+					weatherRequestFinished = true;
+					if (weatherRequestFinished && forecastRequestFinished) {
+						this.props.updateWeather(weatherData, forecastData);
+					}
+				},
+				error: (err) => {
+					console.log(err);
 				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			}
+		});
 
-		axios.get(requestForecastUrl)
-			.then((resp) => {
-				forecastData = resp;
-				forecastRequestFinished = true;
+		api.send({
+			endpoint: requestForecastUrl,
+			method: 'GET',
+			callback: {
+				success: (resp) => {
+					forecastData = JSON.parse(resp);
+					forecastRequestFinished = true;
 
-				if (weatherRequestFinished && forecastRequestFinished) {
-					this.props.updateWeather(weatherData, forecastData);
+					if (weatherRequestFinished && forecastRequestFinished) {
+						this.props.updateWeather(weatherData, forecastData);
+					}
+				},
+				error: (err) => {
+					console.log(err);
 				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			}
+		});
 	}
 
 	render () {
-		// console.log(this.props);
 		if (this.props.weatherResp && this.props.forecastResp) {
 			return (
 				<div className="weather-widget">
@@ -57,14 +65,14 @@ class Weather extends React.Component {
 						<h3>
 							<span className="text">
 								Currently
-								<strong>{this.props.weatherResp.data.name}</strong>
+								<strong>{this.props.weatherResp.name}</strong>
 							</span>
 							<span className="icon">
-								<img src={'http://openweathermap.org/img/w/' + this.props.weatherResp.data.weather[0].icon + '.png'} />
+								<img src={'http://openweathermap.org/img/w/' + this.props.weatherResp.weather[0].icon + '.png'} />
 							</span>
 						</h3>
 						<p>
-							<span className="value">{this.props.weatherResp.data.main.temp}</span>
+							<span className="value">{this.props.weatherResp.main.temp}</span>
 							<sup>&deg;C</sup>
 						</p>
 					</div>
@@ -72,7 +80,7 @@ class Weather extends React.Component {
 			)
 		} else {
 			return null;
-		}		
+		}
 	}
 }
 

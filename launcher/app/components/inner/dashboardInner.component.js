@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import {connect} from 'react-redux'
 import Weather from './weather.component'
+import Movies from './movies.component'
 import store from '../../store'
 
 const mapStateToProps = store => {
@@ -14,7 +15,6 @@ const mapStateToProps = store => {
 class DashboardInner extends React.Component {
 
 	updateWeather(wdata, fdata) {
-
 		store.dispatch({
 			type: 'RENDER_WEATHER',
 			response: {
@@ -28,11 +28,11 @@ class DashboardInner extends React.Component {
 		if (this.props.isActive) {
 			return (
 				<div className="placeholder">
+					<Movies/>
 					<Weather updateWeather={this.updateWeather}/>
-					<div>placeholder component for youtube</div>
-					<div>placeholder component for movies</div>
 					<div>placeholder component for images</div>
 					<div>placeholder component for games</div>
+					<div>placeholder component for youtube</div>
 				</div>
 			)
 		} else {

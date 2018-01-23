@@ -3,6 +3,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
 const url = require('url');
+const files = require('./util/files');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,7 +11,13 @@ let win;
 
 function createWindow() {
   // Create the browser window
-  win = new BrowserWindow({width: 1000, height: 800});
+  win = new BrowserWindow({
+    width: 1200,
+    height: 1000,
+    minWidth: 1000,
+    minHeight: 1000,
+    frame: false
+  });
 
   // Load the apps index.html
   win.loadURL(url.format({
@@ -18,7 +25,7 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }));
-  
+
   // Open the dev tools
   win.webContents.openDevTools();
 
@@ -53,7 +60,19 @@ app.on('activate', () => {
   }
 });
 
+
+// probably need to move this to a different file
 // Quit the app when the 'close-main-window' event is received
 ipcMain.on('close-main-window', () => {
   app.quit();
+});
+
+ipcMain.on('get-movies', (evt) => {
+  files.getAllFiles('D:/Movies/', function(filesObj) {
+    evt.sender.send('got-movies', filesObj);
+  });
+});
+
+ipcMain.on('set-movies-url', () => {
+  return 'set movies url man...';
 });

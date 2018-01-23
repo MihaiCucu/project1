@@ -1,6 +1,5 @@
 const weatherReducer = (state = {}, action) => {
 	let stateCopy = {...state};
-
 	switch (action.type) {
 		case 'RENDER_WEATHER':
 			return {
